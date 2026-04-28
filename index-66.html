@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>World Humanity – Serving Humanity with Love</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #faf6f0;
+    --warm-white: #fefcf9;
+    --gold: #c8a35a;
+    --gold-light: #e8c97a;
+    --deep: #1a1410;
+    --charcoal: #2d2520;
+    --mid: #6b5e52;
+    --soft: #b5a898;
+    --accent: #8b3a2a;
+    --accent-light: #c0604a;
+    --glass-bg: rgba(255,252,249,0.72);
+    --glass-border: rgba(200,163,90,0.2);
+    --shadow: 0 8px 40px rgba(26,20,16,0.12);
+    --shadow-gold: 0 4px 24px rgba(200,163,90,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(250,246,240,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(26,20,16,0.10); }
+  .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav-brand span.globe { font-size: 1.6rem; }
+  .nav-brand span.name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--deep); letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: var(--mid); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-donate {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.45rem 1.2rem;
+    border-radius: 50px;
+    transition: background 0.2s !important;
+  }
+  .nav-donate:hover { background: var(--accent-light) !important; color: #fff !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { width: 22px; height: 2px; background: var(--charcoal); border-radius: 2px; transition: all 0.3s; }
+  @media (max-width: 700px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--warm-white); padding: 1.5rem; gap: 1rem; border-bottom: 1px solid var(--glass-border); }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+  }
+
+    /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    /* Layering a translucent dark gradient over the image to maintain the deep aesthetic and text contrast */
+    background: 
+      linear-gradient(135deg, rgba(26, 20, 16, 0.85) 0%, rgba(45, 31, 24, 0.75) 40%, rgba(61, 42, 31, 0.7) 70%, rgba(26, 20, 16, 0.9) 100%),
+      url('humanity.jpg') center/cover no-repeat;
+  }
+
+  .hero-texture {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a35a' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-glow {
+    position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,163,90,0.15) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center; padding: 2rem;
+    max-width: 800px;
+    animation: fadeUp 1s ease both;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,163,90,0.15); border: 1px solid rgba(200,163,90,0.4);
+    border-radius: 50px; padding: 0.4rem 1.2rem;
+    font-size: 0.8rem; font-weight: 500; color: var(--gold-light);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 700; line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+  .hero-title .globe-icon { display: block; font-size: 0.7em; margin-bottom: 0.2em; }
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    font-style: italic; font-weight: 400;
+    color: var(--gold-light);
+    margin-bottom: 1.5rem;
+  }
+  .hero-quote {
+    font-size: 1rem; color: rgba(250,246,240,0.6);
+    max-width: 480px; margin: 0 auto 2.5rem;
+    line-height: 1.7; font-style: italic;
+    border-left: 2px solid var(--gold); padding-left: 1rem;
+    text-align: left;
+  }
+  .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--deep); border: none; padding: 0.9rem 2.2rem;
+    border-radius: 50px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: var(--shadow-gold);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,163,90,0.45); }
+  .btn-outline {
+    background: transparent; color: var(--cream);
+    border: 1px solid rgba(250,246,240,0.4);
+    padding: 0.9rem 2.2rem; border-radius: 50px;
+    font-size: 0.95rem; font-weight: 500;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { background: rgba(250,246,240,0.1); border-color: var(--gold-light); color: var(--gold-light); }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: rgba(250,246,240,0.4); font-size: 0.75rem; letter-spacing: 0.1em;
+  }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold)); animation: scrollPulse 2s infinite; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 6rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700; line-height: 1.15;
+    color: var(--deep);
+    margin-bottom: 1.5rem;
+  }
+  .divider {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin-bottom: 2rem;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--warm-white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .about-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-circle {
+    width: 280px; height: 280px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--accent) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8rem;
+    box-shadow: 0 20px 60px rgba(200,163,90,0.3);
+  }
+  .about-ring {
+    position: absolute; inset: -20px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,163,90,0.3);
+  }
+  .about-ring-2 {
+    position: absolute; inset: -40px;
+    border-radius: 50%;
+    border: 1px dashed rgba(200,163,90,0.15);
+  }
+  .about-body p { line-height: 1.8; color: var(--mid); margin-bottom: 1.2rem; font-size: 1rem; }
+  .about-founder {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    background: var(--cream); border: 1px solid var(--glass-border);
+    border-radius: 50px; padding: 0.6rem 1.2rem;
+    font-size: 0.9rem; font-weight: 500; color: var(--charcoal);
+    margin-top: 0.5rem;
+  }
+  .about-quote {
+    margin-top: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-style: italic;
+    color: var(--gold); border-left: 3px solid var(--gold);
+    padding: 0.8rem 1.2rem;
+    background: rgba(200,163,90,0.06); border-radius: 0 8px 8px 0;
+  }
+  @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } .about-visual { display: none; } }
+
+  /* ── SERVICES ── */
+  .services { background: var(--cream); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .service-card {
+    background: var(--warm-white);
+    border: 1px solid rgba(200,163,90,0.15);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--accent));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: rgba(200,163,90,0.35); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon { font-size: 2.4rem; margin-bottom: 1rem; display: block; }
+  .service-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--deep); margin-bottom: 0.6rem; }
+  .service-desc { font-size: 0.9rem; color: var(--mid); line-height: 1.7; }
+
+  /* ── RECOGNITION ── */
+  .recognition {
+    background: linear-gradient(135deg, #1a1410 0%, #2d1f18 100%);
+    position: relative; overflow: hidden;
+  }
+  .recognition::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a35a' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .recognition .section-title { color: var(--cream); }
+  .recognition .section-label { color: var(--gold-light); }
+  .recognition .divider { background: linear-gradient(90deg, var(--gold-light), transparent); }
+  .honors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+  .honor-card {
+    background: rgba(255,252,249,0.06);
+    border: 1px solid rgba(200,163,90,0.25);
+    border-radius: 16px; padding: 2rem;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s;
+  }
+  .honor-card:hover { background: rgba(255,252,249,0.1); border-color: rgba(200,163,90,0.5); transform: translateY(-3px); }
+  .honor-medal { font-size: 2.5rem; margin-bottom: 1rem; }
+  .honor-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold-light); margin-bottom: 0.5rem; }
+  .honor-desc { font-size: 0.88rem; color: rgba(250,246,240,0.6); line-height: 1.7; }
+
+  /* ── UPDATES ── */
+  .updates { background: var(--warm-white); }
+  .updates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 2.5rem; }
+  .update-card {
+    background: var(--cream);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px; padding: 1.5rem;
+    transition: all 0.2s;
+  }
+  .update-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .update-date { font-size: 0.78rem; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .update-text { font-size: 0.95rem; color: var(--charcoal); line-height: 1.65; }
+  .updates-empty { text-align: center; color: var(--soft); font-size: 1rem; padding: 3rem 0; }
+
+  /* ── GALLERY ── */
+  .gallery { background: var(--cream); }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+  .gallery-item {
+    border-radius: 12px; overflow: hidden;
+    aspect-ratio: 1; position: relative; cursor: pointer;
+  }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-item::after {
+    content: '🔍'; position: absolute; inset: 0;
+    background: rgba(26,20,16,0.4); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 1.8rem; opacity: 0; transition: opacity 0.3s;
+  }
+  .gallery-item:hover::after { opacity: 1; }
+  .gallery-empty { text-align: center; color: var(--soft); padding: 3rem; border: 2px dashed rgba(200,163,90,0.2); border-radius: 12px; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(26,20,16,0.95);
+    align-items: center; justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 8px; object-fit: contain; }
+  .lightbox-close {
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    background: none; border: none; color: var(--cream);
+    font-size: 2rem; cursor: pointer; line-height: 1;
+  }
+
+  /* ── VOLUNTEER ── */
+  .volunteer { background: var(--warm-white); }
+  .volunteer-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: start; }
+  .volunteer-info p { color: var(--mid); line-height: 1.8; font-size: 1rem; margin-bottom: 1rem; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 0.82rem; font-weight: 600; color: var(--mid); letter-spacing: 0.05em; }
+  input, textarea {
+    background: var(--cream); border: 1px solid rgba(200,163,90,0.25);
+    border-radius: 10px; padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    color: var(--charcoal); outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(200,163,90,0.12); }
+  textarea { resize: vertical; min-height: 110px; }
+  .btn-submit {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    color: #fff; border: none; padding: 0.9rem;
+    border-radius: 50px; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; width: 100%; transition: all 0.2s;
+    margin-top: 0.5rem;
+  }
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(139,58,42,0.35); }
+  .success-msg {
+    display: none; grid-column: 1 / -1;
+    background: rgba(139,58,42,0.08); border: 1px solid rgba(139,58,42,0.3);
+    border-radius: 10px; padding: 1rem 1.5rem;
+    color: var(--accent); font-weight: 500; text-align: center;
+  }
+  @media (max-width: 768px) { .volunteer-inner { grid-template-columns: 1fr; gap: 2rem; } .form-grid { grid-template-columns: 1fr; } }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deep);
+    padding: 4rem 2rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  footer::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); margin-bottom: 0.8rem; }
+  .footer-tagline { font-size: 0.9rem; color: var(--soft); line-height: 1.7; }
+  .footer-col-title { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+  .footer-social { display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-social a {
+    display: flex; align-items: center; gap: 0.7rem;
+    text-decoration: none; color: var(--soft);
+    font-size: 0.88rem; transition: color 0.2s;
+  }
+  .footer-social a:hover { color: var(--gold-light); }
+  .footer-social-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+  .fb-icon { background: rgba(24,119,242,0.15); color: #1877f2; }
+  .ig-icon { background: rgba(225,48,108,0.15); color: #e1306c; }
+  .wa-icon { background: rgba(37,211,102,0.15); color: #25d366; }
+  .footer-visitor {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(200,163,90,0.2);
+    border-radius: 12px; padding: 1.2rem;
+    text-align: center;
+  }
+  .visitor-count { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700; color: var(--gold-light); }
+  .visitor-label { font-size: 0.8rem; color: var(--soft); margin-top: 0.3rem; }
+  .footer-bottom { border-top: 1px solid rgba(200,163,90,0.12); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .footer-copy { font-size: 0.82rem; color: rgba(181,168,152,0.5); }
+  @media (max-width: 768px) { .footer-top { grid-template-columns: 1fr; gap: 2rem; } }
+  /* ── IMAGE INTEGRATIONS ── */
+  .nav-logo {
+    height: 36px; 
+    width: auto; 
+    object-fit: contain;
+  }
+
+  .founder-profile {
+    display: flex; 
+    align-items: center; 
+    gap: 1rem; 
+    margin-top: 1.2rem;
+  }
+
+  .founder-img {
+    width: 75px; 
+    height: 75px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid var(--gold);
+    box-shadow: var(--shadow-gold);
+  }
+
+  .about-img-pro {
+    width: 320px; 
+    height: 320px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    position: relative; 
+    z-index: 2; 
+    box-shadow: 0 20px 60px rgba(26,20,16,0.15);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a class="nav-brand" href="#">
+    <img src="logo.png" alt="World Humanity Logo" class="nav-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';" />
+    <span class="globe" style="display: none;">🌍</span> <span class="name">World Humanity</span>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#updates">Updates</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#volunteer">Volunteer</a></li>
+    <li><a href="donate.html" class="nav-donate">Donate ❤️</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-texture"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">❤️ Social Service Organization</div>
+    <h1 class="hero-title">
+      <span class="globe-icon">🌍</span>
+      World Humanity
+    </h1>
+    <p class="hero-tagline">Serving Humanity with Love ❤️</p>
+    <blockquote class="hero-quote">
+      "Humanity is the highest religion in the world." 🌍❤️
+    </blockquote>
+    <div class="hero-buttons">
+      <a href="donate.html" class="btn-primary">❤️ Donate Now</a>
+      <a href="#volunteer" class="btn-outline">Join as Volunteer</a>
+    </div>
+  </div>
+  
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid reveal">
+      <div class="about-body">
+        <p class="section-label">Who We Are</p>
+        <h2 class="section-title">About Us &amp; Our Mission</h2>
+        <div class="divider"></div>
+        <p>🌍 <strong>World Humanity</strong> is an organization dedicated to humanity, compassion, and social service. We believe every life deserves dignity, love, and support — regardless of circumstance.</p>
+        <p>💖 Our mission: <em>"To extend love and support to every life in need."</em></p>
+        
+        <div class="about-founder">
+          <span>👤</span>
+          <span>Founded by Social Worker <strong>Loganathan.P</strong></span>
+        </div>
+        
+        <div class="founder-profile">
+          <img src="founder.jpg" alt="Loganathan.P - Founder" class="founder-img" />
+        </div>
+
+        <div class="about-quote">
+          ✨ Every service we do begins with love and ends with humanity.
+        </div>
+      </div>
+      
+      <div class="about-visual">
+        <div class="about-ring-2"></div>
+        <div class="about-ring"></div>
+        <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?q=80&w=800&auto=format&fit=crop" alt="Humanity and Support" class="about-img-pro" crossorigin="anonymous" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── SERVICES ── -->
+<section class="services" id="services">
+  <div class="container reveal">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-title">Our Services</h2>
+    <div class="divider"></div>
+    <p style="color:var(--mid);max-width:500px;">Our services are filled with care and compassion ❤️. We walk beside those who have no one else.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🍛</span>
+        <div class="service-title">Free Food (Annadhanam)</div>
+        <p class="service-desc">Removing hunger is our first duty. We provide free nutritious meals to those who need it most, because no one should sleep hungry.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🤝</span>
+        <div class="service-title">Helping People in Need</div>
+        <p class="service-desc">A helping hand of humanity. We extend support to individuals and families facing hardship, offering material and emotional assistance.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📢</span>
+        <div class="service-title">Social Awareness</div>
+        <p class="service-desc">Working towards a better society by creating awareness on important social issues — health, education, rights, and community harmony.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🧠❤️</span>
+        <div class="service-title">Mental Health Care</div>
+        <p class="service-desc">Care and support to people with mental health conditions, funded personally with deep compassion and commitment to healing.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🤝</span>
+        <div class="service-title">Leprosy Assistance</div>
+        <p class="service-desc">Service and assistance to people affected by leprosy — offering dignity, medical support, and the warmth of human connection.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">⚱️</span>
+        <div class="service-title">Final Rites Service</div>
+        <p class="service-desc">We stand as a family for abandoned and unidentified individuals. With due respect and authority permissions, we ensure their bodies are handled with dignity, love, and compassion — giving a proper burial service.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RECOGNITION ── -->
+<section class="recognition" id="recognition">
+  <div class="container reveal">
+    <p class="section-label">Honors &amp; Awards</p>
+    <h2 class="section-title">Recognition &amp; Honors</h2>
+    <div class="divider"></div>
+    <div class="honors-grid">
+      <div class="honor-card">
+        <div class="honor-medal">🏅</div>
+        <div class="honor-title">District Collector of Tiruvannamalai</div>
+        <p class="honor-desc">Honored for outstanding social service — recognized by the highest district authority for relentless dedication to community welfare.</p>
+      </div>
+      <div class="honor-card">
+        <div class="honor-medal">🏅</div>
+        <div class="honor-title">District Collector of Vellore</div>
+        <p class="honor-desc">Honored for dedicated humanitarian service — acknowledged for impactful contributions to the vulnerable and marginalized communities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── UPDATES ── -->
+<section class="updates" id="updates">
+  <div class="container reveal">
+    <p class="section-label">What's Happening</p>
+    <h2 class="section-title">Daily / Latest Updates</h2>
+    <div class="divider"></div>
+    <div class="updates-grid" id="updatesGrid">
+      <div class="updates-empty">Loading updates...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALLERY ── -->
+<section class="gallery" id="gallery">
+  <div class="container reveal">
+    <p class="section-label">Live Gallery</p>
+    <h2 class="section-title">Our Work in Photos</h2>
+    <div class="divider"></div>
+    <div class="gallery-grid" id="galleryGrid">
+      <div class="gallery-empty" style="grid-column:1/-1">Loading gallery...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LIGHTBOX ── -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <img src="" id="lightboxImg" alt="Gallery Image" />
+</div>
+
+<!-- ── VOLUNTEER ── -->
+<section class="volunteer" id="volunteer">
+  <div class="container">
+    <div class="volunteer-inner reveal">
+      <div class="volunteer-info">
+        <p class="section-label">Join Us</p>
+        <h2 class="section-title">Become a Volunteer</h2>
+        <div class="divider"></div>
+        <p>Every hand that joins us multiplies the love we can give. Whether you have a few hours or a lifetime, your presence makes a difference.</p>
+        <p>Fill the form and our team will reach out to you with next steps. Together, we can touch more lives. 🌍❤️</p>
+      </div>
+      <form id="volunteerForm">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="volName" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="volPhone" placeholder="+91 XXXXX XXXXX" required />
+          </div>
+          <div class="form-group full">
+            <label>Email Address</label>
+            <input type="email" id="volEmail" placeholder="your@email.com" />
+          </div>
+          <div class="form-group full">
+            <label>Message / How you wish to help</label>
+            <textarea id="volMessage" placeholder="Tell us how you'd like to volunteer..."></textarea>
+          </div>
+          <div class="success-msg" id="successMsg">✅ Thank you! We'll be in touch soon. 🌍❤️</div>
+          <button type="submit" class="btn-submit" id="submitBtn">🤝 Join as Volunteer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">🌍 World Humanity</div>
+        <p class="footer-tagline">Serving humanity with love, compassion, and unwavering dedication since the beginning. Every act of service is a step toward a more humane world.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Connect With Us</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/share/1B9xc5Cvbs/" target="_blank" rel="noopener">
+            <div class="footer-social-icon fb-icon">f</div>
+            Facebook Page 1
+          </a>
+          <a href="https://www.facebook.com/share/18KWxisK4i/" target="_blank" rel="noopener">
+            <div class="footer-social-icon fb-icon">f</div>
+            Facebook Page 2
+          </a>
+          <a href="https://www.instagram.com/loganathan_gpr?igsh=c2t5MW9pZXFmbGE3" target="_blank" rel="noopener">
+            <div class="footer-social-icon ig-icon">📷</div>
+            Instagram
+          </a>
+          <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">
+            <div class="footer-social-icon wa-icon">💬</div>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Visitor Count</p>
+        <div class="footer-visitor">
+          <div class="visitor-count" id="visitorCount">—</div>
+          <div class="visitor-label">Total Visitors</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 World Humanity. All rights reserved.</span>
+      <span class="footer-copy">Built with ❤️ for humanity</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, addDoc, doc, updateDoc, increment, getDoc, orderBy, query, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDY5ghU4yoocsy4SXvWBJuul96nDdrF4Sk",
+    authDomain: "world-humanity.firebaseapp.com",
+    projectId: "world-humanity",
+    storageBucket: "world-humanity.firebasestorage.app",
+    messagingSenderId: "395556215937",
+    appId: "1:395556215937:web:ea498d116c221e0702c180",
+    measurementId: "G-QWZTM7X6YY"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ── Load Updates ──
+  async function loadUpdates() {
+    const grid = document.getElementById('updatesGrid');
+    try {
+      const q = query(collection(db, 'updates'), orderBy('date', 'desc'), limit(6));
+      const snap = await getDocs(q);
+      if (snap.empty) {
+        grid.innerHTML = '<div class="updates-empty">No updates yet. Check back soon! 🌍</div>';
+        return;
+      }
+      grid.innerHTML = '';
+      snap.forEach(doc => {
+        const d = doc.data();
+        const card = document.createElement('div');
+        card.className = 'update-card';
+        card.innerHTML = `<div class="update-date">${d.date || ''}</div><div class="update-text">${d.text || ''}</div>`;
+        grid.appendChild(card);
+      });
+    } catch (e) {
+      grid.innerHTML = '<div class="updates-empty">Could not load updates.</div>';
+    }
+  }
+
+  // ── Load Gallery ──
+  async function loadGallery() {
+    const grid = document.getElementById('galleryGrid');
+    try {
+      const snap = await getDocs(collection(db, 'gallery'));
+      if (snap.empty) {
+        grid.innerHTML = '<div class="gallery-empty" style="grid-column:1/-1">Gallery is being updated. Check back soon! 📸</div>';
+        return;
+      }
+      grid.innerHTML = '';
+      snap.forEach(d => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.innerHTML = `<img src="${d.data().url}" alt="${d.data().caption || 'Gallery'}" loading="lazy" />`;
+        item.addEventListener('click', () => openLightbox(d.data().url));
+        grid.appendChild(item);
+      });
+    } catch (e) {
+      grid.innerHTML = '<div class="gallery-empty" style="grid-column:1/-1">Could not load gallery.</div>';
+    }
+  }
+
+  // ── Lightbox ──
+  function openLightbox(src) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightbox').classList.add('open');
+  }
+  document.getElementById('lightboxClose').addEventListener('click', () => {
+    document.getElementById('lightbox').classList.remove('open');
+  });
+  document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target === document.getElementById('lightbox')) document.getElementById('lightbox').classList.remove('open');
+  });
+
+  // ── Volunteer Form ──
+  document.getElementById('volunteerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const msg = document.getElementById('successMsg');
+    btn.textContent = 'Submitting...'; btn.disabled = true;
+    try {
+      await addDoc(collection(db, 'volunteers'), {
+        name: document.getElementById('volName').value,
+        phone: document.getElementById('volPhone').value,
+        email: document.getElementById('volEmail').value,
+        message: document.getElementById('volMessage').value,
+        submittedAt: new Date().toISOString()
+      });
+      msg.style.display = 'block';
+      document.getElementById('volunteerForm').reset();
+    } catch (err) {
+      alert('Submission failed. Please try again.');
+    }
+    btn.textContent = '🤝 Join as Volunteer'; btn.disabled = false;
+  });
+
+  // ── Visitor Counter ──
+  async function trackVisitor() {
+    const ref = doc(db, 'analytics', 'visitors');
+    try {
+      await updateDoc(ref, { count: increment(1) });
+      const snap = await getDoc(ref);
+      document.getElementById('visitorCount').textContent = (snap.data()?.count || 0).toLocaleString();
+    } catch {
+      try {
+        const { setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+        await setDoc(ref, { count: 1 });
+        document.getElementById('visitorCount').textContent = '1';
+      } catch {}
+    }
+  }
+
+  loadUpdates(); loadGallery(); trackVisitor();
+</script>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 30); });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
