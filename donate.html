@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Donate – World Humanity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #faf6f0; --warm-white: #fefcf9;
+    --gold: #c8a35a; --gold-light: #e8c97a;
+    --deep: #1a1410; --charcoal: #2d2520;
+    --mid: #6b5e52; --soft: #b5a898;
+    --accent: #8b3a2a; --accent-light: #c0604a;
+    --green: #2e7d52; --green-light: #4caf7a;
+    --glass-border: rgba(200,163,90,0.2);
+    --shadow: 0 8px 40px rgba(26,20,16,0.12);
+    --shadow-gold: 0 4px 24px rgba(200,163,90,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--charcoal); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(250,246,240,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 2px 20px rgba(26,20,16,0.07);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
+  .nav-brand span.name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--deep); }
+  .nav-back { text-decoration: none; font-size: 0.88rem; font-weight: 500; color: var(--mid); display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .donate-hero {
+    background: linear-gradient(135deg, #1a1410 0%, #2d1f18 50%, #3d2a1f 100%);
+    padding: 5rem 2rem 4rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .donate-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a35a' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-glow {
+    position: absolute; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(200,163,90,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none;
+  }
+  .donate-hero-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,163,90,0.15); border: 1px solid rgba(200,163,90,0.4);
+    border-radius: 50px; padding: 0.4rem 1.2rem;
+    font-size: 0.8rem; font-weight: 500; color: var(--gold-light);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.5rem;
+  }
+  .donate-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem,7vw,4.5rem); font-weight: 700; color: var(--cream); margin-bottom: 1rem; line-height: 1.1; }
+  .donate-hero p { font-size: 1.05rem; color: rgba(250,246,240,0.65); line-height: 1.75; max-width: 480px; margin: 0 auto; }
+  .donate-hero .amount-note {
+    display: inline-block; margin-top: 1.5rem;
+    background: rgba(200,163,90,0.15); border: 1px solid rgba(200,163,90,0.35);
+    border-radius: 50px; padding: 0.5rem 1.5rem;
+    color: var(--gold-light); font-weight: 600; font-size: 0.95rem;
+  }
+
+  /* ── MAIN ── */
+  .donate-main { max-width: 1050px; margin: -2rem auto 0; padding: 0 1.5rem 5rem; position: relative; z-index: 2; }
+
+  .donate-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 768px) { .donate-grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--warm-white);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.2rem;
+    box-shadow: var(--shadow);
+  }
+  .card-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--deep); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
+
+  /* Bank Details */
+  .bank-table { width: 100%; border-collapse: collapse; }
+  .bank-table tr { border-bottom: 1px solid rgba(200,163,90,0.1); }
+  .bank-table tr:last-child { border-bottom: none; }
+  .bank-table td { padding: 0.8rem 0; font-size: 0.92rem; vertical-align: top; }
+  .bank-table td:first-child { color: var(--soft); font-weight: 500; width: 45%; }
+  .bank-table td:last-child { color: var(--charcoal); font-weight: 600; }
+  .bank-highlight {
+    background: linear-gradient(135deg, rgba(200,163,90,0.08), rgba(200,163,90,0.04));
+    border: 1px solid rgba(200,163,90,0.2);
+    border-radius: 12px; padding: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  .bank-name-main { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--deep); }
+  .bank-name-sub { font-size: 0.85rem; color: var(--mid); margin-top: 0.2rem; }
+  .copy-btn {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: var(--cream); border: 1px solid var(--glass-border);
+    border-radius: 8px; padding: 0.55rem 1rem;
+    font-size: 0.83rem; font-weight: 600; color: var(--mid);
+    cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .copy-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,163,90,0.06); }
+  .copy-btn.copied { border-color: var(--green); color: var(--green); background: rgba(46,125,82,0.06); }
+  .bank-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid rgba(200,163,90,0.1); }
+  .bank-row:last-child { border-bottom: none; }
+  .bank-row-label { font-size: 0.82rem; color: var(--soft); font-weight: 500; }
+  .bank-row-value { font-size: 0.92rem; font-weight: 700; color: var(--charcoal); }
+
+  /* UPI Section */
+  .upi-card { text-align: center; }
+  .qr-placeholder {
+    width: 200px; height: 200px; margin: 0 auto 1.2rem;
+    border: 2px dashed rgba(200,163,90,0.4);
+    border-radius: 16px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.5rem; color: var(--soft);
+    background: rgba(200,163,90,0.03);
+    position: relative; overflow: hidden;
+  }
+  .qr-placeholder img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; display: none; }
+  .qr-placeholder img.loaded { display: block; }
+  .qr-placeholder .qr-hint { font-size: 0.82rem; font-weight: 500; line-height: 1.5; text-align: center; padding: 0 1rem; }
+  .qr-placeholder .qr-icon { font-size: 2.5rem; }
+  .upi-id-box {
+    background: var(--cream); border: 1px solid var(--glass-border);
+    border-radius: 12px; padding: 0.9rem 1.2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem; gap: 1rem;
+  }
+  .upi-id-text { font-size: 0.95rem; font-weight: 700; color: var(--charcoal); word-break: break-all; }
+  .upi-note { font-size: 0.82rem; color: var(--soft); line-height: 1.6; }
+  .upi-note strong { color: var(--accent); }
+
+  /* Impact section */
+  .impact-section { margin-top: 1.5rem; }
+  .impact-title { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .impact-item { text-align: center; background: var(--cream); border-radius: 12px; padding: 1rem; border: 1px solid rgba(200,163,90,0.12); }
+  .impact-icon { font-size: 1.6rem; margin-bottom: 0.4rem; }
+  .impact-amount { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+  .impact-desc { font-size: 0.75rem; color: var(--soft); margin-top: 0.2rem; line-height: 1.4; }
+
+  /* Motivational strip */
+  .motivation-strip {
+    background: linear-gradient(135deg, var(--accent) 0%, #6b2018 100%);
+    border-radius: 16px; padding: 2rem 2.5rem;
+    margin: 1.5rem 0; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .motivation-strip::before {
+    content: ''; position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .motivation-strip p { position: relative; z-index: 1; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; color: rgba(255,255,255,0.95); line-height: 1.6; }
+
+  /* Zero fee note */
+  .zero-fee {
+    display: flex; align-items: center; gap: 0.8rem;
+    background: rgba(46,125,82,0.08); border: 1px solid rgba(46,125,82,0.25);
+    border-radius: 12px; padding: 1rem 1.2rem; margin-top: 1.2rem;
+  }
+  .zero-fee-icon { font-size: 1.4rem; }
+  .zero-fee-text { font-size: 0.88rem; color: var(--green); font-weight: 500; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html">
+    <span style="font-size:1.4rem">🌍</span>
+    <span class="name">World Humanity</span>
+  </a>
+  <a class="nav-back" href="index.html">← Back to Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="donate-hero">
+  <div class="hero-glow"></div>
+  <div class="donate-hero-inner">
+    <div class="hero-badge">❤️ Make a Difference Today</div>
+    <h1>Your Donation<br/>Changes Lives</h1>
+    <p>Every rupee you give directly helps feed the hungry, support the vulnerable, and restore dignity to the forgotten. There are zero transaction fees — every single paisa reaches those in need.</p>
+    <div class="amount-note">💝 Contribute any amount from ₹1 onwards</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="donate-main">
+
+  <div class="motivation-strip">
+    <p>"The best way to find yourself is to lose yourself in the service of others." — Give today and change a life forever. 🌍❤️</p>
+  </div>
+
+  <div class="donate-grid">
+
+    <!-- Bank Details Card -->
+    <div class="card">
+      <div class="card-title">🏦 Bank Transfer Details</div>
+
+      <div class="bank-highlight">
+        <div class="bank-name-main">LOGANATHAN P</div>
+        <div class="bank-name-sub">Account Holder · State Bank of India</div>
+      </div>
+
+      <div class="bank-row">
+        <div>
+          <div class="bank-row-label">Account Number</div>
+          <div class="bank-row-value">31496401665</div>
+        </div>
+        <button class="copy-btn" onclick="copyText('31496401665', this)">📋 Copy A/C</button>
+      </div>
+
+      <div class="bank-row">
+        <div>
+          <div class="bank-row-label">IFSC Code</div>
+          <div class="bank-row-value">SBIN0000938</div>
+        </div>
+        <button class="copy-btn" onclick="copyText('SBIN0000938', this)">📋 Copy IFSC</button>
+      </div>
+
+      <div class="bank-row">
+        <div>
+          <div class="bank-row-label">Bank</div>
+          <div class="bank-row-value">State Bank of India</div>
+        </div>
+      </div>
+
+      <div class="bank-row">
+        <div>
+          <div class="bank-row-label">Branch</div>
+          <div class="bank-row-value">Tiruvannamalai</div>
+        </div>
+      </div>
+
+      <div class="bank-row">
+        <div>
+          <div class="bank-row-label">MICR Code</div>
+          <div class="bank-row-value">606002002</div>
+        </div>
+        <button class="copy-btn" onclick="copyText('606002002', this)">📋 Copy</button>
+      </div>
+
+      <div class="zero-fee">
+        <div class="zero-fee-icon">✅</div>
+        <div class="zero-fee-text"><strong>Zero transaction fees.</strong> Your donation goes directly to those in need. No middlemen, no platform cuts.</div>
+      </div>
+    </div>
+
+    <!-- UPI Card -->
+    <div class="card upi-card">
+      <div class="card-title">📱 UPI / QR Code</div>
+
+      <div class="qr-placeholder" id="qrBox">
+        <div class="qr-icon">📲</div>
+        <div class="qr-hint">Scan with any UPI app<br/><span style="font-size:0.75rem;color:var(--gold)">GPay • PhonePe • Paytm • BHIM</span></div>
+      </div>
+
+      <div class="upi-id-box">
+        <div class="upi-id-text" id="upiIdText">loganathanp@sbi</div>
+        <button class="copy-btn" onclick="copyUPI(this)">📋 Copy UPI</button>
+      </div>
+
+      <p class="upi-note">Open any UPI app, tap <strong>"Scan QR"</strong> or <strong>"Pay to UPI ID"</strong> and enter the ID above. Enter any amount from ₹1 — every contribution matters. 🙏</p>
+
+      <div class="impact-section">
+        <p class="impact-title">What your donation does</p>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <div class="impact-icon">🍛</div>
+            <div class="impact-amount">₹50</div>
+            <div class="impact-desc">Feeds one person for a day</div>
+          </div>
+          <div class="impact-item">
+            <div class="impact-icon">💊</div>
+            <div class="impact-amount">₹200</div>
+            <div class="impact-desc">Medicines for one patient</div>
+          </div>
+          <div class="impact-item">
+            <div class="impact-icon">🤝</div>
+            <div class="impact-amount">₹500</div>
+            <div class="impact-desc">Support a family for a week</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /donate-grid -->
+
+  <!-- Bottom note -->
+  <div style="text-align:center; margin-top:2.5rem; color:var(--soft); font-size:0.88rem; line-height:1.7;">
+    For large donations or corporate contributions, please reach out via
+    <a href="https://www.facebook.com/share/1B9xc5Cvbs/" target="_blank" style="color:var(--gold);text-decoration:none;">Facebook</a> or
+    <a href="https://www.instagram.com/loganathan_gpr?igsh=c2t5MW9pZXFmbGE3" target="_blank" style="color:var(--gold);text-decoration:none;">Instagram</a>.
+    <br/>🙏 Thank you for your love and generosity. Every act of giving is a prayer answered.
+  </div>
+
+</div><!-- /donate-main -->
+
+<script>
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+function copyUPI(btn) {
+  const upiId = document.getElementById('upiIdText').textContent;
+  copyText(upiId, btn);
+}
+</script>
+</body>
+</html>
