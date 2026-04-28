@@ -356,7 +356,9 @@
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
   }
   .footer-inner { max-width: 1100px; margin: 0 auto; }
-  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+   
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+
   .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); margin-bottom: 0.8rem; }
   .footer-tagline { font-size: 0.9rem; color: var(--soft); line-height: 1.7; }
   .footer-col-title { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
@@ -667,14 +669,10 @@
           </a>
         </div>
       </div>
-      <div>
-        <p class="footer-col-title">Visitor Count</p>
-        <div class="footer-visitor">
-          <div class="visitor-count" id="visitorCount">—</div>
-          <div class="visitor-label">Total Visitors</div>
-        </div>
-      </div>
     </div>
+
+      
+
     <div class="footer-bottom">
       <span class="footer-copy">© 2025 World Humanity. All rights reserved.</span>
       <span class="footer-copy">Built with ❤️ for humanity</span>
@@ -779,21 +777,21 @@
     btn.textContent = '🤝 Join as Volunteer'; btn.disabled = false;
   });
 
-  // ── Visitor Counter ──
+  // ── Visitor Counter (Tracking only, hidden from UI) ──
   async function trackVisitor() {
     const ref = doc(db, 'analytics', 'visitors');
     try {
+      // Increment the count in Firestore
       await updateDoc(ref, { count: increment(1) });
-      const snap = await getDoc(ref);
-      document.getElementById('visitorCount').textContent = (snap.data()?.count || 0).toLocaleString();
     } catch {
+      // If the document doesn't exist yet, create it
       try {
         const { setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
         await setDoc(ref, { count: 1 });
-        document.getElementById('visitorCount').textContent = '1';
       } catch {}
     }
   }
+
 
   loadUpdates(); loadGallery(); trackVisitor();
 </script>
