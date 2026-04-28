@@ -70,13 +70,12 @@
     .hamburger { display: flex; }
   }
 
-    /* ── HERO ── */
+  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
     position: relative;
     overflow: hidden;
-    /* Layering a translucent dark gradient over the image to maintain the deep aesthetic and text contrast */
     background: 
       linear-gradient(135deg, rgba(26, 20, 16, 0.85) 0%, rgba(45, 31, 24, 0.75) 40%, rgba(61, 42, 31, 0.7) 70%, rgba(26, 20, 16, 0.9) 100%),
       url('humanity.jpg') center/cover no-repeat;
@@ -252,18 +251,57 @@
   .recognition .section-title { color: var(--cream); }
   .recognition .section-label { color: var(--gold-light); }
   .recognition .divider { background: linear-gradient(90deg, var(--gold-light), transparent); }
-  .honors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
+  
+  /* Honors Slider Updates */
+  .honors-grid { 
+    display: flex; gap: 1.5rem; margin-top: 2.5rem; 
+    overflow-x: auto; scroll-snap-type: x mandatory; 
+    padding-bottom: 2rem; 
+    /* Hide scrollbar for a cleaner look */
+    -ms-overflow-style: none; scrollbar-width: none; 
+  }
+  /* ── RECOGNITION / HONORS SLIDER ── */
+.honors-grid { 
+    display: flex; gap: 1.5rem; margin-top: 2.5rem; 
+    overflow-x: auto; scroll-snap-type: x mandatory; 
+    padding-bottom: 2rem; scrollbar-width: none; 
+  }
+  .honors-grid::-webkit-scrollbar { display: none; }
+  
   .honor-card {
+    flex: 0 0 280px; /* Fixed width for every card */
+    height: 340px;   /* Fixed height for every card */
+    scroll-snap-align: start;
     background: rgba(255,252,249,0.06);
     border: 1px solid rgba(200,163,90,0.25);
-    border-radius: 16px; padding: 2rem;
+    border-radius: 16px; padding: 1.5rem;
     backdrop-filter: blur(12px);
     transition: all 0.3s;
+    text-align: center;
   }
-  .honor-card:hover { background: rgba(255,252,249,0.1); border-color: rgba(200,163,90,0.5); transform: translateY(-3px); }
-  .honor-medal { font-size: 2.5rem; margin-bottom: 1rem; }
-  .honor-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: var(--gold-light); margin-bottom: 0.5rem; }
-  .honor-desc { font-size: 0.88rem; color: rgba(250,246,240,0.6); line-height: 1.7; }
+  .honor-card img {
+    width: 100%; 
+    height: 200px; 
+    object-fit: cover; /* Fills the box completely */
+    border-radius: 8px; margin-bottom: 1rem; 
+    border: 1px solid rgba(200,163,90,0.2);
+  }
+
+
+  .honor-card:hover { 
+    background: rgba(255,252,249,0.1); 
+    border-color: rgba(200,163,90,0.5); 
+  }
+
+  .honor-title { 
+    font-family: 'Cormorant Garamond', serif; 
+    font-size: 1.1rem; 
+    font-weight: 700; 
+    color: var(--gold-light); 
+    text-align: center;
+    width: 100%; /* Ensures text centers within the image width */
+    line-height: 1.3;
+  }
 
   /* ── UPDATES ── */
   .updates { background: var(--warm-white); }
@@ -281,12 +319,35 @@
 
   /* ── GALLERY ── */
   .gallery { background: var(--cream); }
-  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
-  .gallery-item {
-    border-radius: 12px; overflow: hidden;
-    aspect-ratio: 1; position: relative; cursor: pointer;
+  
+  /* Gallery Slider Updates */
+  .gallery-grid { 
+    display: flex; gap: 1.2rem; margin-top: 2.5rem; 
+    overflow-x: auto; scroll-snap-type: x mandatory; 
+    padding-bottom: 1.5rem;
+    -ms-overflow-style: none; scrollbar-width: none;
+    align-items: stretch; /* Keeps the slider track consistent */
   }
-  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+  .gallery-grid::-webkit-scrollbar { display: none; }
+  
+  .gallery-item {
+    flex: 0 0 auto; /* ⬅️ This allows the box to adapt its width! */
+    height: 280px; /* ⬅️ We lock the height instead, so the slider stays aligned */
+    scroll-snap-align: start;
+    border-radius: 12px; /* ⬅️ Corner cuts */
+    overflow: hidden; /* ⬅️ Applies the corner cuts tightly to the image */
+    position: relative; 
+    cursor: pointer;
+  }
+  
+  .gallery-item img { 
+    width: auto; /* ⬅️ Width adapts to portrait or landscape perfectly */
+    height: 100%; /* ⬅️ Matches the 280px box height */
+    object-fit: cover; 
+    transition: transform 0.4s; 
+    display: block;
+  }
+  
   .gallery-item:hover img { transform: scale(1.06); }
   .gallery-item::after {
     content: '🔍'; position: absolute; inset: 0;
@@ -295,7 +356,8 @@
     font-size: 1.8rem; opacity: 0; transition: opacity 0.3s;
   }
   .gallery-item:hover::after { opacity: 1; }
-  .gallery-empty { text-align: center; color: var(--soft); padding: 3rem; border: 2px dashed rgba(200,163,90,0.2); border-radius: 12px; }
+  .gallery-empty { text-align: center; color: var(--soft); padding: 3rem; border: 2px dashed rgba(200,163,90,0.2); border-radius: 12px; width: 100%; }
+
 
   /* ── LIGHTBOX ── */
   .lightbox {
@@ -362,59 +424,23 @@
   .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); margin-bottom: 0.8rem; }
   .footer-tagline { font-size: 0.9rem; color: var(--soft); line-height: 1.7; }
   .footer-col-title { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
-  .footer-social { display: flex; flex-direction: column; gap: 0.7rem; }
-  .footer-social a {
-    display: flex; align-items: center; gap: 0.7rem;
-    text-decoration: none; color: var(--soft);
-    font-size: 0.88rem; transition: color 0.2s;
-  }
-  .footer-social a:hover { color: var(--gold-light); }
-  .footer-social-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+  
+  .footer-social-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; text-decoration: none; }
   .fb-icon { background: rgba(24,119,242,0.15); color: #1877f2; }
   .ig-icon { background: rgba(225,48,108,0.15); color: #e1306c; }
   .wa-icon { background: rgba(37,211,102,0.15); color: #25d366; }
-  .footer-visitor {
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(200,163,90,0.2);
-    border-radius: 12px; padding: 1.2rem;
-    text-align: center;
-  }
-  .visitor-count { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700; color: var(--gold-light); }
-  .visitor-label { font-size: 0.8rem; color: var(--soft); margin-top: 0.3rem; }
+  .footer-social-icon:hover { opacity: 0.8; transform: translateY(-2px); transition: all 0.2s; }
+
   .footer-bottom { border-top: 1px solid rgba(200,163,90,0.12); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
   .footer-copy { font-size: 0.82rem; color: rgba(181,168,152,0.5); }
   @media (max-width: 768px) { .footer-top { grid-template-columns: 1fr; gap: 2rem; } }
+  
   /* ── IMAGE INTEGRATIONS ── */
-  .nav-logo {
-    height: 36px; 
-    width: auto; 
-    object-fit: contain;
-  }
+  .nav-logo { height: 46px; width: auto; object-fit: contain; }
 
-  .founder-profile {
-    display: flex; 
-    align-items: center; 
-    gap: 1rem; 
-    margin-top: 1.2rem;
-  }
-
-  .founder-img {
-    width: 75px; 
-    height: 75px; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    border: 2px solid var(--gold);
-    box-shadow: var(--shadow-gold);
-  }
-
-  .about-img-pro {
-    width: 320px; 
-    height: 320px; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    position: relative; 
-    z-index: 2; 
-    box-shadow: 0 20px 60px rgba(26,20,16,0.15);
-  }
+  .founder-profile { display: flex; align-items: center; gap: 1rem; margin-top: 1.2rem; }
+  .founder-img { width: 75px; height: 75px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); box-shadow: var(--shadow-gold); }
+  .about-img-pro { width: 320px; height: 320px; border-radius: 50%; object-fit: cover; position: relative; z-index: 2; box-shadow: 0 20px 60px rgba(26,20,16,0.15); }
 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
@@ -457,23 +483,34 @@
 <section class="hero" id="home">
   <div class="hero-texture"></div>
   <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-badge">❤️ Social Service Organization</div>
-    <h1 class="hero-title">
-      <span class="globe-icon">🌍</span>
-      World Humanity
+  <div class="hero-content" style="width: 100%; padding: 5rem 1rem 2rem;">
+    
+    <div style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: rgba(200,163,90,0.12); border: 1px solid rgba(200,163,90,0.3); border-radius: 50px; padding: 0.5rem 1.2rem; font-size: 0.85rem; font-weight: 600; color: var(--gold-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(200,163,90,0.15);">
+      ❤️ 21 Years of Humanity Service
+    </div>
+
+    <h1 class="hero-title" style="margin-bottom: 0.8rem; font-size: clamp(2.4rem, 8.5vw, 4.5rem); line-height: 1.15;">
+      <span class="globe-icon" style="font-size: 0.6em; margin-bottom: 0.1em; display: block;"></span>
+      Make a Difference<br/>Today
     </h1>
-    <p class="hero-tagline">Serving Humanity with Love ❤️</p>
-    <blockquote class="hero-quote">
+
+    <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 7vw, 2.8rem); font-style: italic; font-weight: 600; color: var(--gold); margin-bottom: 2.5rem; line-height: 1.2; text-shadow: 0 4px 15px rgba(26,20,16,0.8);">
+      Serving Humanity with Love ❤️
+    </p>
+    
+    <blockquote class="hero-quote" style="font-size: 1.1rem; max-width: 480px; margin: 0 auto 3rem; border-left: 2px solid var(--gold); padding: 0.8rem 1rem; text-align: left; background: linear-gradient(90deg, rgba(200,163,90,0.15), transparent); border-radius: 0 8px 8px 0; color: #ffffff; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
       "Humanity is the highest religion in the world." 🌍❤️
     </blockquote>
-    <div class="hero-buttons">
-      <a href="donate.html" class="btn-primary">❤️ Donate Now</a>
-      <a href="#volunteer" class="btn-outline">Join as Volunteer</a>
+    
+    <div class="hero-buttons" style="display: flex; flex-direction: column; gap: 1.2rem; align-items: center; max-width: 320px; margin: 0 auto;">
+      <a href="donate.html" class="btn-primary" style="width: 100%; font-size: 1.05rem; padding: 1rem 1.5rem;">❤️ Donate Now</a>
+      <a href="#volunteer" class="btn-outline" style="width: 100%; font-size: 1.05rem; padding: 1rem 1.5rem; border: 2px solid #ffffff; color: #ffffff;">Join as Volunteer</a>
     </div>
+    
   </div>
-  
 </section>
+
+
 
 <!-- ── ABOUT ── -->
 <section class="about" id="about">
@@ -484,20 +521,44 @@
         <h2 class="section-title">About Us &amp; Our Mission</h2>
         <div class="divider"></div>
         <p>🌍 <strong>World Humanity</strong> is an organization dedicated to humanity, compassion, and social service. We believe every life deserves dignity, love, and support — regardless of circumstance.</p>
+        <p>For over 21 years, this journey of service began with a simple belief: no one should feel alone in their struggles. Social Worker Loganathan has dedicated his life to bridging the gap for the abandoned and marginalized, creating an emotional connection that goes beyond basic charity.</p>
         <p>💖 Our mission: <em>"To extend love and support to every life in need."</em></p>
         
-        <div class="about-founder">
-          <span>👤</span>
-          <span>Founded by Social Worker <strong>Loganathan.P</strong></span>
+                <div style="display: flex; align-items: center; gap: 1.5rem; background: rgba(200,163,90,0.04); border: 1px solid rgba(200,163,90,0.25); padding: 1.2rem; border-radius: 24px; margin: 2rem 0; max-width: 480px;">
+          <img src="founder.jpg" alt="Social Worker Loganathan.P" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold); box-shadow: 0 8px 24px rgba(200,163,90,0.3); flex-shrink: 0;" />
+          <div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem;">
+              Founder & Social Worker
+            </div>
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: var(--deep); line-height: 1.2;">
+              Loganathan.P
+            </div>
+          </div>
         </div>
-        
-        <div class="founder-profile">
-          <img src="founder.jpg" alt="Loganathan.P - Founder" class="founder-img" />
-        </div>
+
 
         <div class="about-quote">
           ✨ Every service we do begins with love and ends with humanity.
         </div>
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(200,163,90,0.04); border: 1px dashed var(--gold); border-radius: 16px; box-shadow: inset 0 0 20px rgba(200,163,90,0.05);">
+          
+
+          
+          <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1.2rem;">
+            <span style="font-size: 1.5rem;">📜</span>
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; color: var(--deep); margin: 0;">Govt. Registered Organization</h3>
+          </div>
+          
+          <div style="font-size: 0.9rem; color: var(--charcoal); line-height: 1.6;">
+            <p style="margin-bottom: 0.5rem;"><strong style="color: var(--gold);">Reg No:</strong> 4/62/2018</p>
+            <p style="margin-bottom: 0.5rem;"><strong style="color: var(--gold);">Founder:</strong> Awardee P. Loganathan (Social Worker)</p>
+            <p style="margin-bottom: 0.5rem;"><strong style="color: var(--gold);">WhatsApp / Call:</strong> +91 96778 04134, +91 861017 6153</p>
+            <p style="margin-bottom: 0.5rem;"><strong style="color: var(--gold);">Email:</strong> socialworkerloganathan@gmail.com</p>
+            <p style="margin-bottom: 0;"><strong style="color: var(--gold);">Address:</strong> No.298, Middle Street, Thalaiyampallam Village, Nariyapattu Post, Tiruvannamalai Tk & Dt - 606 811.</p>
+          </div>
+
+        </div>
+
       </div>
       
       <div class="about-visual">
@@ -508,7 +569,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- ── SERVICES ── -->
 <section class="services" id="services">
@@ -525,13 +585,13 @@
       </div>
       <div class="service-card">
         <span class="service-icon">🤝</span>
-        <div class="service-title">Helping People in Need</div>
-        <p class="service-desc">A helping hand of humanity. We extend support to individuals and families facing hardship, offering material and emotional assistance.</p>
+        <div class="service-title">Leprosy Assistance</div>
+        <p class="service-desc">Service and assistance to people affected by leprosy — offering dignity, medical support, and the warmth of human connection.</p>
       </div>
       <div class="service-card">
-        <span class="service-icon">📢</span>
-        <div class="service-title">Social Awareness</div>
-        <p class="service-desc">Working towards a better society by creating awareness on important social issues — health, education, rights, and community harmony.</p>
+        <span class="service-icon">🕯️</span>
+        <div class="service-title">Final Rites Service</div>
+        <p class="service-desc"><strong>"For those who have no one, we become their family ❤️"</strong><br/>With due respect and authority permissions, we ensure their bodies are handled with dignity, love, and compassion — giving a proper burial service.</p>
       </div>
       <div class="service-card">
         <span class="service-icon">🧠❤️</span>
@@ -539,14 +599,9 @@
         <p class="service-desc">Care and support to people with mental health conditions, funded personally with deep compassion and commitment to healing.</p>
       </div>
       <div class="service-card">
-        <span class="service-icon">🤝</span>
-        <div class="service-title">Leprosy Assistance</div>
-        <p class="service-desc">Service and assistance to people affected by leprosy — offering dignity, medical support, and the warmth of human connection.</p>
-      </div>
-      <div class="service-card">
-        <span class="service-icon">⚱️</span>
-        <div class="service-title">Final Rites Service</div>
-        <p class="service-desc">We stand as a family for abandoned and unidentified individuals. With due respect and authority permissions, we ensure their bodies are handled with dignity, love, and compassion — giving a proper burial service.</p>
+        <span class="service-icon">📢</span>
+        <div class="service-title">Social Awareness</div>
+        <p class="service-desc">Working towards a better society by creating awareness on important social issues — health, education, rights, and community harmony.</p>
       </div>
     </div>
   </div>
@@ -558,17 +613,8 @@
     <p class="section-label">Honors &amp; Awards</p>
     <h2 class="section-title">Recognition &amp; Honors</h2>
     <div class="divider"></div>
-    <div class="honors-grid">
-      <div class="honor-card">
-        <div class="honor-medal">🏅</div>
-        <div class="honor-title">District Collector of Tiruvannamalai</div>
-        <p class="honor-desc">Honored for outstanding social service — recognized by the highest district authority for relentless dedication to community welfare.</p>
-      </div>
-      <div class="honor-card">
-        <div class="honor-medal">🏅</div>
-        <div class="honor-title">District Collector of Vellore</div>
-        <p class="honor-desc">Honored for dedicated humanitarian service — acknowledged for impactful contributions to the vulnerable and marginalized communities.</p>
-      </div>
+    <div class="honors-grid" id="honorsGrid">
+      <div class="gallery-empty" style="grid-column:1/-1; border-color: rgba(200,163,90,0.5);">Loading honors...</div>
     </div>
   </div>
 </section>
@@ -650,28 +696,25 @@
       </div>
       <div>
         <p class="footer-col-title">Connect With Us</p>
-        <div class="footer-social">
-          <a href="https://www.facebook.com/share/1B9xc5Cvbs/" target="_blank" rel="noopener">
-            <div class="footer-social-icon fb-icon">f</div>
-            Facebook Page 1
-          </a>
-          <a href="https://www.facebook.com/share/18KWxisK4i/" target="_blank" rel="noopener">
-            <div class="footer-social-icon fb-icon">f</div>
-            Facebook Page 2
-          </a>
-          <a href="https://www.instagram.com/loganathan_gpr?igsh=c2t5MW9pZXFmbGE3" target="_blank" rel="noopener">
-            <div class="footer-social-icon ig-icon">📷</div>
-            Instagram
-          </a>
-          <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener">
-            <div class="footer-social-icon wa-icon">💬</div>
-            WhatsApp
-          </a>
+          
+          <div style="margin-top: 1.2rem; display: flex; gap: 1rem;">
+            <a href="https://www.facebook.com/share/1B9xc5Cvbs/" target="_blank" rel="noopener" class="footer-social-icon" title="Facebook Page 1">
+              <img src="https://i.ibb.co/5gknR5NK/1777394137762.png" alt="Facebook" style="width: 32px; height: 32px; object-fit: contain;" />
+            </a>
+            <a href="https://www.facebook.com/share/18KWxisK4i/" target="_blank" rel="noopener" class="footer-social-icon" title="Facebook Page 2">
+              <img src="https://i.ibb.co/5gknR5NK/1777394137762.png" alt="Facebook" style="width: 32px; height: 32px; object-fit: contain;" />
+            </a>
+            <a href="https://www.instagram.com/loganathan_gpr?igsh=c2t5MW9pZXFmbGE3" target="_blank" rel="noopener" class="footer-social-icon" title="Instagram">
+              <img src="https://i.ibb.co/272KjnkT/pngtree-instagram-icon-png-image-6315974.png" alt="Instagram" style="width: 32px; height: 32px; object-fit: contain;" />
+            </a>
+            <a href="https://wa.me/919677804134" target="_blank" rel="noopener" class="footer-social-icon" title="WhatsApp">
+              <img src="https://i.ibb.co/W4JHGmzZ/Whats-App-icon.png" alt="WhatsApp" style="width: 32px; height: 32px; object-fit: contain;" />
+            </a>
+          </div>
+
         </div>
       </div>
     </div>
-
-      
 
     <div class="footer-bottom">
       <span class="footer-copy">© 2025 World Humanity. All rights reserved.</span>
@@ -725,29 +768,98 @@
   async function loadGallery() {
     const grid = document.getElementById('galleryGrid');
     try {
-      const snap = await getDocs(collection(db, 'gallery'));
+      const q = query(collection(db, 'gallery'), orderBy('addedAt', 'desc'));
+      const snap = await getDocs(q);
+      
       if (snap.empty) {
-        grid.innerHTML = '<div class="gallery-empty" style="grid-column:1/-1">Gallery is being updated. Check back soon! 📸</div>';
+        grid.innerHTML = '<div class="gallery-empty" style="flex: 1;">Gallery is being updated. Check back soon! 📸</div>';
         return;
       }
       grid.innerHTML = '';
-      snap.forEach(d => {
+      
+      // Convert Firebase results to a normal array
+      let docsArray = snap.docs;
+      
+      // Pin the oldest image to the very front, newest follow behind it
+      if (docsArray.length > 1) {
+        const oldestImage = docsArray.pop(); // Remove oldest from the end
+        docsArray.unshift(oldestImage);      // Add it to the very beginning
+      }
+      
+      docsArray.forEach(doc => {
+        const d = doc.data();
         const item = document.createElement('div');
         item.className = 'gallery-item';
-        item.innerHTML = `<img src="${d.data().url}" alt="${d.data().caption || 'Gallery'}" loading="lazy" />`;
-        item.addEventListener('click', () => openLightbox(d.data().url));
+        item.innerHTML = `<img src="${d.url}" alt="${d.caption || 'Gallery'}" loading="lazy" />`;
+        item.addEventListener('click', () => openLightbox(d.url));
         grid.appendChild(item);
       });
     } catch (e) {
-      grid.innerHTML = '<div class="gallery-empty" style="grid-column:1/-1">Could not load gallery.</div>';
+      grid.innerHTML = '<div class="gallery-empty" style="flex: 1;">Could not load gallery.</div>';
     }
   }
 
-  // ── Lightbox ──
+  // ── Load Honors ──
+  async function loadHonors() {
+    const grid = document.getElementById('honorsGrid');
+    try {
+      const q = query(collection(db, 'honors'), orderBy('addedAt', 'desc'));
+      const snap = await getDocs(q);
+      
+      if (snap.empty) {
+        grid.innerHTML = '<div class="gallery-empty" style="flex: 1; border-color: rgba(200,163,90,0.5);">Awards & Honors are being updated.</div>';
+        return;
+      }
+      grid.innerHTML = '';
+
+      let docsArray = snap.docs;
+      
+      // Pin the oldest award to the very front, newest follow behind it
+      if (docsArray.length > 1) {
+        const oldestHonor = docsArray.pop();
+        docsArray.unshift(oldestHonor);
+      }
+
+      docsArray.forEach(doc => {
+        const d = doc.data();
+        const item = document.createElement('div');
+        item.className = 'honor-card';
+        item.innerHTML = `
+          <img src="${d.url}" alt="${d.title || 'Honor'}" loading="lazy" />
+          <div class="honor-title">${d.title || 'Award'}</div>
+        `;
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', () => openLightbox(d.url));
+        grid.appendChild(item);
+      });
+    } catch (e) {
+      grid.innerHTML = '<div class="gallery-empty" style="flex: 1; border-color: rgba(200,163,90,0.5);">Could not load honors.</div>';
+    }
+  }
+
+  // ── Lightbox (With Scroll Lock) ──
   function openLightbox(src) {
     document.getElementById('lightboxImg').src = src;
     document.getElementById('lightbox').classList.add('open');
+    // Lock the background scroll
+    document.body.style.overflow = 'hidden'; 
   }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    // Unlock the background scroll
+    document.body.style.overflow = ''; 
+  }
+
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  
+  document.getElementById('lightbox').addEventListener('click', e => {
+    if (e.target === document.getElementById('lightbox')) {
+      closeLightbox();
+    }
+  });
+
+
   document.getElementById('lightboxClose').addEventListener('click', () => {
     document.getElementById('lightbox').classList.remove('open');
   });
@@ -792,8 +904,7 @@
     }
   }
 
-
-  loadUpdates(); loadGallery(); trackVisitor();
+  loadUpdates(); loadGallery(); loadHonors(); trackVisitor();
 </script>
 
 <script>
