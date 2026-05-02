@@ -31,34 +31,45 @@
   </button>
 </nav>
 
-<!-- ── HERO ── -->
-<section class="hero" id="home">
-  <div class="hero-texture"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-content" style="width: 100%; padding: 5rem 1rem 2rem;">
-    
-    <div style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; background: rgba(200,163,90,0.12); border: 1px solid rgba(200,163,90,0.3); border-radius: 50px; padding: 0.5rem 1.2rem; font-size: 0.85rem; font-weight: 600; color: var(--gold-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; backdrop-filter: blur(8px); box-shadow: 0 4px 20px rgba(200,163,90,0.15);">
+<!-- ── BANNER SLIDER ── -->
+<section class="banner-section" id="home">
+  <div class="banner-slider" id="heroSlider">
+    <!-- Slides injected by JS; fallback is CSS background on .banner-section -->
+  </div>
+
+  <!-- Left / Right arrow buttons -->
+  <button class="banner-arrow banner-arrow--prev" id="prevSlide" aria-label="Previous slide">&#8249;</button>
+  <button class="banner-arrow banner-arrow--next" id="nextSlide" aria-label="Next slide">&#8250;</button>
+
+  <!-- Dot navigation -->
+  <div class="banner-dots" id="heroSliderDots"></div>
+</section>
+
+<!-- ── INTRO ── -->
+<section class="intro-section">
+  <div class="intro-inner">
+
+    <div class="intro-badge">
       ❤️ 21 Years of Humanity Service
     </div>
 
-    <h1 class="hero-title" style="margin-bottom: 0.8rem; font-size: clamp(2.4rem, 8.5vw, 4.5rem); line-height: 1.15;">
-      <span class="globe-icon" style="font-size: 0.6em; margin-bottom: 0.1em; display: block;"></span>
+    <h1 class="intro-title">
       Make a Difference<br/>Today
     </h1>
 
-    <p style="font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 7vw, 2.8rem); font-style: italic; font-weight: 600; color: var(--gold); margin-bottom: 2.5rem; line-height: 1.2; text-shadow: 0 4px 15px rgba(26,20,16,0.8);">
+    <p class="intro-tagline">
       Serving Humanity with Love ❤️
     </p>
-    
-    <blockquote class="hero-quote" style="font-size: 1.1rem; max-width: 480px; margin: 0 auto 3rem; border-left: 2px solid var(--gold); padding: 0.8rem 1rem; text-align: left; background: linear-gradient(90deg, rgba(200,163,90,0.15), transparent); border-radius: 0 8px 8px 0; color: #ffffff; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+
+    <blockquote class="intro-quote">
       "Humanity is the highest religion in the world." 🌍❤️
     </blockquote>
-    
-    <div class="hero-buttons" style="display: flex; flex-direction: column; gap: 1.2rem; align-items: center; max-width: 320px; margin: 0 auto;">
-      <a href="donate.html" class="btn-primary" style="width: 100%; font-size: 1.05rem; padding: 1rem 1.5rem;">❤️ Donate ₹1 onwards</a>
-      <a href="#volunteer" class="btn-outline" style="width: 100%; font-size: 1.05rem; padding: 1rem 1.5rem; border: 2px solid #ffffff; color: #ffffff;">Join as Volunteer</a>
+
+    <div class="intro-buttons">
+      <a href="donate.html" class="btn-primary">❤️ Donate Now</a>
+      <a href="#volunteer" class="btn-outline-dark">Join as Volunteer</a>
     </div>
-    
+
   </div>
 </section>
 
