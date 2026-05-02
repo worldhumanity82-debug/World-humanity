@@ -14,6 +14,75 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
+  // ── Banner Slider ──
+  async function loadHeroSlider() {
+    const sliderEl = document.getElementById('heroSlider');
+    const dotsEl   = document.getElementById('heroSliderDots');
+    if (!sliderEl) return;
+
+    let slides = [];
+    let current = 0;
+    let intervalId = null;
+
+    try {
+      const q    = query(collection(db, 'hero_slider'), orderBy('order', 'asc'));
+      const snap = await getDocs(q);
+      if (snap.empty) return; // keep static CSS fallback background
+
+      snap.forEach(d => slides.push(d.data()));
+    } catch (e) {
+      return; // silently fall back to static background
+    }
+
+    // Build slide elements
+    slides.forEach((s, i) => {
+      const div = document.createElement('div');
+      div.className = 'banner-slide' + (i === 0 ? ' active' : '');
+      div.style.backgroundImage = `url('${s.url}')`;
+      sliderEl.appendChild(div);
+
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => { goTo(i); resetInterval(); });
+      dotsEl.appendChild(dot);
+    });
+
+    function goTo(idx) {
+      const slideEls = sliderEl.querySelectorAll('.banner-slide');
+      const dotEls   = dotsEl.querySelectorAll('.dot');
+      slideEls[current].classList.remove('active');
+      dotEls[current].classList.remove('active');
+      // Wrap around in both directions
+      current = ((idx % slides.length) + slides.length) % slides.length;
+      slideEls[current].classList.add('active');
+      dotEls[current].classList.add('active');
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    function resetInterval() {
+      clearInterval(intervalId);
+      if (slides.length > 1) {
+        intervalId = setInterval(next, 5000);
+      }
+    }
+
+    if (slides.length > 1) {
+      intervalId = setInterval(next, 5000);
+
+      // Pause on hover
+      sliderEl.addEventListener('mouseenter', () => clearInterval(intervalId));
+      sliderEl.addEventListener('mouseleave', () => { intervalId = setInterval(next, 5000); });
+
+      // Arrow buttons
+      const prevBtn = document.getElementById('prevSlide');
+      const nextBtn = document.getElementById('nextSlide');
+      if (prevBtn) prevBtn.addEventListener('click', () => { prev(); resetInterval(); });
+      if (nextBtn) nextBtn.addEventListener('click', () => { next(); resetInterval(); });
+    }
+  }
+
   // ── Load Updates ──
   async function loadUpdates() {
     const grid = document.getElementById('updatesGrid');
@@ -196,7 +265,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
     }
   }
 
-  loadUpdates(); loadGallery(); loadHonors(); trackVisitor();
+  loadHeroSlider(); loadUpdates(); loadGallery(); loadHonors(); trackVisitor();
 
 // Nav scroll
   const nav = document.getElementById('nav');
